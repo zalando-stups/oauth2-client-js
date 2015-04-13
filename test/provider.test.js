@@ -169,4 +169,16 @@ describe('Provider', () => {
         let parsed = querystring.parse(uri.substring(6));
         expect(parsed.refresh_token).to.equal('refresh me');
     });
+
+    it('the request metadata should be present on the response', () => {
+        request.metadata = {
+            timestamp: 123
+        };
+        provider.remember(request);
+        responseConfig.state = request.state;
+        let resp = provider.parse(querystring.stringify(responseConfig));
+        expect(resp.metadata).to.not.be.undefined;
+        expect(resp.metadata.timestamp).to.not.be.undefined;
+        expect(resp.metadata.timestamp).to.equal(request.metadata.timestamp);
+    });
 });
