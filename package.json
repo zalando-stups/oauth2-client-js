@@ -1,0 +1,30 @@
+{
+  "name": "oauth2-client",
+  "version": "0.0.1",
+  "description": "A client implementation for OAuth2 Implicit Grant",
+  "main": "oauth.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel/register --require test/chai.js"
+  },
+  "author": "Nikolaus Piccolotto",
+  "license": "Apache 2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zalando/oauth2-client.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zalando/oauth2-client/issues"
+  },
+  "homepage": "https://github.com/zalando/oauth2-client",
+  "dependencies": {
+    "node-uuid": "1.4.3"
+  },
+  "devDependencies": {
+    "babel": "5.1.2",
+    "babel-core": "5.1.2",
+    "babel-loader": "5.0.0",
+    "chai": "2.2.0",
+    "mocha": "2.2.4",
+    "webpack": "1.8.4"
+  }
+}
