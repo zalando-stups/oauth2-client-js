@@ -8,6 +8,10 @@ function assertPresent(obj, ...fields) {
     }
 }
 
+// function stripKeys(obj, ...keys) {
+    
+// }
+
 export {
     assertPresent as assertPresent
 };

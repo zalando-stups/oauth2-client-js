@@ -1,4 +1,5 @@
 import OAuthTokenStorage from './storage';
+import {assertPresent} from '../util';
 
 class LocalTokenStorage extends OAuthTokenStorage {
     constructor(prefix, localStorage) {
@@ -10,11 +11,18 @@ class LocalTokenStorage extends OAuthTokenStorage {
     }
 
     get(key) {
-        return this.localStorage.getItem(`${this.prefix}-${key}`);
+        let item = this.localStorage.getItem(`${this.prefix}-${key}`);
+        try {
+            item = JSON.parse(item);
+        } catch(err) {
+            return item;
+        }
+        return item;
     }
 
     set(key, val) {
-        return this.localStorage.setItem(`${this.prefix}-${key}`, val);
+        let toSave = typeof val === 'object' ? JSON.stringify(val) : val;
+        return this.localStorage.setItem(`${this.prefix}-${key}`, toSave);
     }
 
     remove(key) {

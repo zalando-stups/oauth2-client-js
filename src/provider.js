@@ -23,7 +23,7 @@ class Provider {
 
     remember(request) {
         if (request.state){
-            return this.store.set(request.state, JSON.stringify(request));
+            return this.store.set(request.state, request);
         }
         return false;
     }
@@ -96,7 +96,7 @@ class Provider {
             throw new Error('Unexpected OAuth response', response);
         }
         // forget request. seems safe, dunno if replay attacks are possible here in principle
-        let request = JSON.parse(this.store.get(response.state));
+        let request = this.store.get(response.state);
         this.forget(request);
         response.metadata = request.metadata;
         if (response instanceof OAuthError) {            
