@@ -7,8 +7,8 @@ module.exports = {
     ],
     output: {
         path: __dirname + '/dist/',
-        filename: 'oauth-client.js',
-        library: 'oauth-client',
+        filename: 'oauth2-client.js',
+        library: 'oauth2-client-js',
         libraryTarget: 'umd'
     },
     plugins: [
