@@ -15,7 +15,7 @@ describe('Provider', () => {
         provider = new Provider({
             id: 'test',
             authorization_url: 'auth',
-            store: new MemoryStorage()
+            storage: new MemoryStorage()
         });
         requestConfig = {
             client_id: 'client',
@@ -31,7 +31,7 @@ describe('Provider', () => {
     });
 
     afterEach(() => {
-        provider.store._empty();
+        provider.storage._empty();
     });
 
     it('should bail without authorization_url', () => {
@@ -50,7 +50,7 @@ describe('Provider', () => {
         provider = new Provider({
             id: 'test',
             authorization_url: 'auth/',
-            store: new MemoryStorage()
+            storage: new MemoryStorage()
         });
         let lastCharacter = provider.authorization_url[provider.authorization_url.length - 1];
         expect(lastCharacter).to.equal('h');
@@ -60,7 +60,7 @@ describe('Provider', () => {
         provider = new Provider({
             id: 'test',
             authorization_url: 'some.url?auth/',
-            store: new MemoryStorage()
+            storage: new MemoryStorage()
         });
         let lastCharacter = provider.authorization_url[provider.authorization_url.length - 1];
         expect(lastCharacter).to.equal('/');
@@ -114,13 +114,13 @@ describe('Provider', () => {
 
     it('should remember a request', () => {
         provider.remember(request);
-        expect(provider.store.get(request.state)).to.be.ok;
+        expect(provider.storage.get(request.state)).to.be.ok;
     });
 
     it('should forget a request', () => {
         provider.remember(request);
         provider.forget(request);
-        expect(provider.store.get(request.state)).to.not.be.ok;
+        expect(provider.storage.get(request.state)).to.not.be.ok;
     });
 
     it('should expect a response after remembering the request', () => {
@@ -166,11 +166,11 @@ describe('Provider', () => {
         expect(provider.getRefreshToken()).to.not.be.ok;
     });
 
-    it('#refreshToken should return false if there is no token in the store', () => {
+    it('#refreshToken should return false if there is no token in the storage', () => {
         expect(provider.refreshToken()).to.be.false;
     });
 
-    it('#refreshToken should use the token in the store', () => {
+    it('#refreshToken should use the token in the storage', () => {
         provider.setRefreshToken('refresh me');
         let request = provider.refreshToken();
         expect(request).to.be.ok;

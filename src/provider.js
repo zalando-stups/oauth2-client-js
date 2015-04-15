@@ -8,12 +8,10 @@ import OAuthError from './error';
 
 class Provider {
     constructor(config) {
-        this.config = config;
         assertPresent(config, 'authorization_url', 'id');
         this.id = config.id;
-        this.hosts = config.hosts;
         this.authorization_url = config.authorization_url;
-        this.store = config.store || new LocalTokenStorage(this.id, window.localStorage);
+        this.storage = config.storage || new LocalTokenStorage(this.id, window.localStorage);
 
         if (this.authorization_url.endsWith('/') &&
             !this.authorization_url.includes('?')) {
@@ -23,44 +21,44 @@ class Provider {
 
     remember(request) {
         if (request.state){
-            return this.store.set(request.state, request);
+            return this.storage.set(request.state, request);
         }
         return false;
     }
 
     forget(request) {
-        return this.store.remove(request.state);
+        return this.storage.remove(request.state);
     }
 
     isExpected(response) {
         if (response.state) {
-            return !!this.store.get(response.state);
+            return !!this.storage.get(response.state);
         }
         return false;
     }
 
     hasAccessToken() {
-        return !!this.store.get('access_token');
+        return !!this.storage.get('access_token');
     }
 
     getAccessToken() {
-        return this.store.get('access_token');
+        return this.storage.get('access_token');
     }
 
     setAccessToken(token) {
-        return this.store.set('access_token', token);
+        return this.storage.set('access_token', token);
     }
 
     hasRefreshToken() {
-        return !!this.store.get('refresh_token');
+        return !!this.storage.get('refresh_token');
     }
 
     getRefreshToken() {
-        return this.store.get('refresh_token');
+        return this.storage.get('refresh_token');
     }
 
     setRefreshToken(token) {
-        return this.store.set('refresh_token', token);
+        return this.storage.set('refresh_token', token);
     }
 
     encodeInUri(request) {
@@ -98,7 +96,7 @@ class Provider {
             throw new Error('Unexpected OAuth response', response);
         }
         // forget request. seems safe, dunno if replay attacks are possible here in principle
-        let request = this.store.get(response.state);
+        let request = this.storage.get(response.state);
         this.forget(request);
         response.metadata = request.metadata;
         if (response instanceof OAuthError) {            
