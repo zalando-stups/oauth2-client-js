@@ -33,11 +33,11 @@ To get a new access token you have to redirect the user to the authorization end
     });
 
     // Give it to the provider
-    var uri = google.encodeInUri(request);
+    var uri = google.requestToken(request);
 
     // Later we need to check if the response was expected
     // so save the request
-    provider.remember(request);
+    google.remember(request);
 
     // Do the redirect
     window.location.href = uri;
@@ -46,7 +46,7 @@ The auth endpoint will redirect the user back to the `redirect_uri` and encode i
 
 To parse the response out of the uri, do it like this:
 
-    var response = provider.parse(window.location.href);
+    var response = google.parse(window.location.href);
 
 This will either throw an error (e.g. when the `state` property doesn’t match both in request and response) or return the response. It will have `metadata` from the request on it. Access and refresh tokens are now available on the provider.
 
@@ -54,18 +54,18 @@ This will either throw an error (e.g. when the `state` property doesn’t match 
 
 They are not in the RFC spec, but you can use them as well (if your server supports them). To issue a refresh request:
 
-    var uri = provider.refreshToken();
+    var uri = google.refreshToken();
     yourHttpLibrary
         .get(uri)
         .then(function(response) {
-            provider.handleRefresh(response.body);
+            google.handleRefresh(response.body);
             // your tokens are now diamonds
             // ehm, up to date.
         });
 
 ### Get Tokens
 
-`getAccessToken()` and `getRefreshToken()`.
+`google.getAccessToken()` and `google.getRefreshToken()`.
 
 ## License
 
