@@ -8,10 +8,18 @@ function assertPresent(obj, ...fields) {
     }
 }
 
-// function stripKeys(obj, ...keys) {
-    
-// }
+function stripKeys(obj, ...keys) {
+    var stripped = {};
+    Object.keys(obj)
+    .forEach(key => {
+        if (keys.indexOf(key) < 0) {
+            stripped[key] = obj[key];
+        }
+    });
+    return stripped;
+}
 
 export {
-    assertPresent as assertPresent
+    assertPresent as assertPresent,
+    stripKeys as stripKeys
 };

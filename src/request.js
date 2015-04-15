@@ -14,7 +14,6 @@ class OAuthRequest {
     constructor(config) {
         assertPresent(config, 'response_type');
 
-        this.config = config;
         this.response_type = config.response_type;
         this.scope = config.scope;
         this.metadata = config.metadata || {};

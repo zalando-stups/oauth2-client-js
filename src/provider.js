@@ -1,5 +1,5 @@
 import querystring from 'querystring';
-import {assertPresent} from './util';
+import {assertPresent, stripKeys} from './util';
 import LocalTokenStorage from './storage/local-storage';
 import Request from './request';
 import Refresh from './refresh';
@@ -62,7 +62,8 @@ class Provider {
     }
 
     encodeInUri(request) {
-        return this.authorization_url + '?' + querystring.stringify(request);
+        let strippedRequest = stripKeys(request, 'metadata');
+        return this.authorization_url + '?' + querystring.stringify(strippedRequest);
     }
 
     requestToken(request) {

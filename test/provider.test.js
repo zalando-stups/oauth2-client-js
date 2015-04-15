@@ -165,6 +165,12 @@ describe('Provider', () => {
         expect(provider.getRefreshToken()).to.not.be.ok;
     });
 
+    it('#requestToken should not put metadata in uri', () => {
+        let uri = provider.requestToken(request);
+        let parsed = querystring.parse(uri.substring('?auth'.length));
+        expect(parsed.metadata).to.be.undefined;
+    });
+
     it('#refreshToken should return false if there is no token in the storage', () => {
         expect(provider.refreshToken()).to.be.false;
     });
