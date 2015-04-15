@@ -82,7 +82,6 @@ describe('Provider', () => {
         let request = provider.refreshToken();
         let uri = provider.encodeInUri(request);
         let parsed = querystring.parse(uri.substring(6));
-        expect(parsed.state).to.not.be.undefined;
         expect(parsed.refresh_token).to.equal('refresh_token');
     });
 
