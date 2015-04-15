@@ -54,8 +54,7 @@ This will either throw an error (e.g. when the `state` property doesn’t match 
 
 They are not in the RFC spec, but you can use them as well (if your server supports them). To issue a refresh request:
 
-    var request = provider.refreshToken();
-    var uri = provider.encodeInUri(request);
+    var uri = provider.refreshToken();
     yourHttpLibrary
         .get(uri)
         .then(function(response) {

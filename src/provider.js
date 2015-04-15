@@ -62,12 +62,7 @@ class Provider {
     }
 
     encodeInUri(request) {
-        if (request instanceof Request) {
-            return this.authorization_url + '?' + querystring.stringify(request);
-        }
-        if (request instanceof Refresh) {
-            return this.authorization_url + '?' + querystring.stringify(request);
-        }
+        return this.authorization_url + '?' + querystring.stringify(request);
     }
 
     requestToken(request) {
@@ -75,7 +70,7 @@ class Provider {
     }
 
     refreshToken() {
-        return this.hasRefreshToken() ? new Refresh({ refresh_token: this.getRefreshToken() }) : false;
+        return this.hasRefreshToken() ? this.encodeInUri(new Refresh({ refresh_token: this.getRefreshToken() })) : false;
     }
 
     decodeFromUri(fragment) {

@@ -79,9 +79,8 @@ describe('Provider', () => {
 
     it('should correctly request a new token via refresh token', () => {
         provider.setRefreshToken('refresh_token');
-        let request = provider.refreshToken();
-        let uri = provider.encodeInUri(request);
-        let parsed = querystring.parse(uri.substring(6));
+        let uri = provider.refreshToken();
+        let parsed = querystring.parse(uri.substring('auth?'.length));
         expect(parsed.refresh_token).to.equal('refresh_token');
     });
 
@@ -171,10 +170,10 @@ describe('Provider', () => {
     });
 
     it('#refreshToken should use the token in the storage', () => {
-        provider.setRefreshToken('refresh me');
-        let request = provider.refreshToken();
-        expect(request).to.be.ok;
-        expect(request.refresh_token).to.equal('refresh me');
+        provider.setRefreshToken('refresh_me');
+        let uri = provider.refreshToken();
+        expect(uri).to.be.ok;
+        expect(uri.indexOf('refresh_me') >= 0).to.be.true;
     });
 
     it('#handleRefresh should save new tokens', () => {
