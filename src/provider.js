@@ -115,7 +115,7 @@ class Provider {
 
     parse(fragment) {
         if (!fragment) {
-            throw new Error('No URL fragement provided.');
+            throw new Error('No URL fragment provided.');
         }
         if (typeof fragment !== 'string') {
             throw new Error('URL fragment is not a string.');

@@ -17,7 +17,7 @@ class OAuthRequest {
         this.config = config;
         this.response_type = config.response_type;
         this.scope = config.scope;
-        this.metadata = {};
+        this.metadata = config.metadata || {};
     }
 }
 
