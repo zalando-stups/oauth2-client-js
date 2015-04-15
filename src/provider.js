@@ -77,18 +77,20 @@ class Provider {
     }
 
     refreshToken() {
-        if (!this.hasRefreshToken()) {
-            // TODO should throw here? i dunno
-            return false;
-        }
-        return this.encodeInUri(new Refresh({
-            refresh_token: this.getRefreshToken()
-        }));
+        return this.hasRefreshToken() ? new Refresh({ refresh_token: this.getRefreshToken() }) : false;
     }
 
     decodeFromUri(fragment) {
         let parsed = querystring.parse(fragment);
         return parsed.error ? new OAuthError(parsed) : new Response(parsed);
+    }
+
+    handleRefresh(response) {
+        // no state here to check
+        this.setAccessToken(response.access_token);
+        if (response.refresh_token) {
+            this.setRefreshToken(response.refresh_token);
+        }
     }
 
     handleResponse(response) {

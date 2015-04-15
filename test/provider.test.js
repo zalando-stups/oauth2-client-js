@@ -77,6 +77,15 @@ describe('Provider', () => {
         expect(parsed.state).to.not.be.undefined;
     });
 
+    it('should correctly request a new token via refresh token', () => {
+        provider.setRefreshToken('refresh_token');
+        let request = provider.refreshToken();
+        let uri = provider.encodeInUri(request);
+        let parsed = querystring.parse(uri.substring(6));
+        expect(parsed.state).to.not.be.undefined;
+        expect(parsed.refresh_token).to.equal('refresh_token');
+    });
+
     it('should correctly parse a successful response', () => {
         responseConfig.state = request.state;
         let fragment = querystring.stringify(responseConfig);
@@ -164,10 +173,21 @@ describe('Provider', () => {
 
     it('#refreshToken should use the token in the store', () => {
         provider.setRefreshToken('refresh me');
-        let uri = provider.refreshToken();
-        expect(uri).to.be.ok;
-        let parsed = querystring.parse(uri.substring(6));
-        expect(parsed.refresh_token).to.equal('refresh me');
+        let request = provider.refreshToken();
+        expect(request).to.be.ok;
+        expect(request.refresh_token).to.equal('refresh me');
+    });
+
+    it('#handleRefresh should save new tokens', () => {
+        provider.setAccessToken('old_access');
+        provider.setRefreshToken('old_refresh');
+        provider.handleRefresh({
+            token_type: 'bearer',
+            access_token: 'new_access',
+            refresh_token: 'new_refresh'
+        });
+        expect(provider.getAccessToken()).to.equal('new_access');
+        expect(provider.getRefreshToken()).to.equal('new_refresh');
     });
 
     it('the request metadata should be present on the response', () => {
