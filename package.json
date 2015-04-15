@@ -1,6 +1,6 @@
 {
   "name": "oauth2-client-js",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A client implementation for OAuth2 Implicit Grant",
   "main": "dist/oauth2-client.js",
   "scripts": {
