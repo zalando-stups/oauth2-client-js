@@ -12,9 +12,9 @@ class Provider {
         this.id = config.id;
         this.authorization_url = config.authorization_url;
         this.storage = config.storage || new LocalTokenStorage(this.id, window.localStorage);
+        this.auth_url_has_query = this.authorization_url.includes('?');
 
-        if (this.authorization_url.endsWith('/') &&
-            !this.authorization_url.includes('?')) {
+        if (this.authorization_url.endsWith('/') && !this.auth_url_has_query) {
             this.authorization_url += this.authorization_url.substring(0, this.authorization_url.length - 1);
         }
     }
@@ -63,7 +63,7 @@ class Provider {
 
     encodeInUri(request) {
         let strippedRequest = stripKeys(request, 'metadata');
-        return this.authorization_url + '?' + querystring.stringify(strippedRequest);
+        return this.authorization_url + (this.auth_url_has_query ? '&' : '?') + querystring.stringify(strippedRequest);
     }
 
     requestToken(request) {

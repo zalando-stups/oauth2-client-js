@@ -66,6 +66,16 @@ describe('Provider', () => {
         expect(lastCharacter).to.equal('/');
     });
 
+    it('should build a valid url if the auth url already has a query', () => {
+        provider = new Provider({
+            id: 'test',
+            authorization_url: 'http://some.url?realm=whatever',
+            storage: new MemoryStorage()
+        });
+        let uri = provider.requestToken(request);
+        expect(uri.lastIndexOf('?')).to.equal('http://some.url'.length);
+    });
+
     it('should correctly request a token', () => {
         let uri = provider.requestToken(request);
         expect(uri.startsWith('auth')).to.be.true;
