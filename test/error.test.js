@@ -19,4 +19,14 @@ describe('ErrorResponse', () => {
             error: 'denied'
         })).to.not.throw;
     });
+
+    it('#getMessage should display error_description', () => {
+        let desc = 'Nope';
+        let err = new ErrorResponse({
+            state: '123',
+            error: 'invalid_request',
+            error_description: desc
+        });
+        expect(err.getMessage()).to.equal(desc);
+    });
 });
