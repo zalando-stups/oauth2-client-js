@@ -1,6 +1,6 @@
 # OAuth2 Client
 
-[![Build Status](http://img.shields.io/travis/zalando/oauth2-client-js.svg)](https://travis-ci.org/zalando/oauth2-client-js)
+[![Build Status](http://img.shields.io/travis/zalando/oauth2-client-js.svg)](https://travis-ci.org/zalando/oauth2-client-js) [![Coverage Status](https://coveralls.io/repos/zalando/oauth2-client-js/badge.svg)](https://coveralls.io/r/zalando/oauth2-client-js)
 
 A library to help you handling OAuth2 access and request tokens. Since it is meant to be used in the browser it only includes the [OAuth2 Implicit Grant](https://tools.ietf.org/html/rfc6749#section-4.2) flow.
 
