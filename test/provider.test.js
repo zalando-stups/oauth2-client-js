@@ -79,12 +79,14 @@ describe('Provider', () => {
     it('should correctly request a token', () => {
         let uri = provider.requestToken(request);
         expect(uri.startsWith('auth')).to.be.true;
-        let query = uri.substring(6);
+        let query = uri.substring('auth?'.length);
         let parsed = querystring.parse(query);
+
         expect(parsed.client_id).to.equal(requestConfig.client_id);
         expect(parsed.redirect_uri).to.equal(requestConfig.redirect_uri);
         expect(parsed.scope).to.equal(requestConfig.scope);
         expect(parsed.state).to.not.be.undefined;
+        expect(parsed.response_type).to.equal('token');
     });
 
     it('should correctly request a new token via refresh token', () => {

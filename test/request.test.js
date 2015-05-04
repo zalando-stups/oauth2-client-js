@@ -19,4 +19,11 @@ describe('ImplicitRequest', () => {
         expect(req.state).to.not.be.undefined;
         expect(typeof req.state).to.equal('string');
     });
+
+    it('should have a response_type', () => {
+        let req = new ImplicitRequest({
+            client_id: 'client'
+        });
+        expect(req.response_type).to.equal('token');
+    });
 });
