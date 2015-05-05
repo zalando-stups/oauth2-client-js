@@ -12,7 +12,7 @@ import {assertPresent} from './util';
 class OAuthResponse {
     constructor(response) {
         this.response = response;
-        assertPresent(response, 'access_token', 'token_type');
+        assertPresent(response, ['access_token', 'token_type']);
 
         this.access_token = response.access_token;
         this.token_type = response.token_type;
@@ -25,7 +25,7 @@ class OAuthResponse {
 class OAuthImplicitResponse extends OAuthResponse {
     constructor(response) {
         super(response);
-        assertPresent(response, 'state');
+        assertPresent(response, ['state']);
         this.state = response.state;
     }
 }

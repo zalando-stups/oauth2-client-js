@@ -8,11 +8,11 @@ import uuid from 'node-uuid';
  * - client_id: REQUIRED
  * - redirect_uri: OPTIONAL
  * - scope: OPTIONAL
- * - state: RECOMMENDED 
+ * - state: RECOMMENDED
  */
 class OAuthRequest {
     constructor(config) {
-        assertPresent(config, 'response_type');
+        assertPresent(config, ['response_type']);
 
         this.response_type = config.response_type;
         this.scope = config.scope;
@@ -24,7 +24,7 @@ class OAuthImplicitRequest extends OAuthRequest {
     constructor(config) {
         config.response_type = 'token';
         super(config);
-        assertPresent(config, 'client_id');
+        assertPresent(config, ['client_id']);
         this.client_id = config.client_id;
         this.redirect_uri = config.redirect_uri;
         this.state = uuid.v4();

@@ -2,7 +2,7 @@ import {assertPresent} from './util';
 
 class OAuthErrorResponse {
     constructor(response) {
-        assertPresent(response, 'error', 'state');
+        assertPresent(response, ['error', 'state']);
         //TODO maybe check valid errors
         this.error = response.error;
         this.state = response.state;

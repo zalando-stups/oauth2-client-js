@@ -11,7 +11,8 @@ class MemoryTokenStorage extends OAuthTokenStorage {
     }
 
     set(key, val) {
-        return this.items[key] = val;
+        this.items[key] = val;
+        return this.get(key);
     }
 
     remove(key) {

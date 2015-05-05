@@ -18,7 +18,13 @@ module.exports = {
     resolve: {
         extensions: ['', '.js']
     },
+    eslint: {
+        configFile: '.eslintrc'
+    },
     module: {
+        preLoaders: [
+            { test: /\.js$/, exclude: /node_modules/, loader: 'eslint' },
+        ],
         loaders: [
             { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
         ]

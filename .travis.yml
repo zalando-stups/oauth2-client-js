@@ -5,3 +5,4 @@ node_js:
   - 'iojs'
 notifications:
   email: false
+script: "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly --  --compilers js:babel/register --require test/chai.js -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"

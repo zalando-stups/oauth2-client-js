@@ -15,12 +15,12 @@ describe('util#stripKeys', () => {
     });
 
     it('should strip keys', () => {
-        let stripped = stripKeys(request, 'metadata');
+        let stripped = stripKeys(request, ['metadata']);
         expect(stripped.metadata).to.be.undefined;
     });
 
     it('should not alter the original', () => {
-        let stripped = stripKeys(request, 'redirect_uri');
+        let stripped = stripKeys(request, ['redirect_uri']);
         expect(stripped.redirect_uri).to.be.undefined;
         expect(request.redirect_uri).to.equal('localhost');
     });

@@ -1,0 +1,24 @@
+{
+    "ecmaFeatures": {
+        "arrowFunctions": true,
+        "blockBindings": true,
+        "classes": true,
+        "destructuring": true,
+        "modules": true,
+        "templateStrings": true,
+        "spread": true
+    },
+    "env": {
+        "browser": true,
+        "mocha": true
+    },
+    globals: {
+        "ENV_PRODUCTION": true
+    },
+    "rules": {
+        "quotes": [2, "single"],
+        "eol-last": 0,
+        "no-underscore-dangle": 0,
+        "camelcase": 0
+    }
+}
