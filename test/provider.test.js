@@ -217,4 +217,12 @@ describe('Provider', () => {
         expect(resp.metadata.timestamp).to.not.be.undefined;
         expect(resp.metadata.timestamp).to.equal(request.metadata.timestamp);
     });
+
+    it('#clear should remove access and refresh token', () => {
+        provider.setAccessToken('access');
+        provider.setRefreshToken('refresh');
+        provider.clear();
+        expect(provider.hasAccessToken()).to.be.false;
+        expect(provider.hasRefreshToken()).to.be.false;
+    });
 });

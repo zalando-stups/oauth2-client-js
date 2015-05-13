@@ -18,6 +18,11 @@ class Provider {
         }
     }
 
+    clear() {
+        this.storage.remove('access_token');
+        this.storage.remove('refresh_token');
+    }
+
     remember(request) {
         if (request.state){
             return this.storage.set(request.state, request);
