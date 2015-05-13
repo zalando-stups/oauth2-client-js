@@ -18,7 +18,7 @@ class Provider {
         }
     }
 
-    clear() {
+    deleteTokens() {
         this.storage.remove('access_token');
         this.storage.remove('refresh_token');
     }
