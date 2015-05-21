@@ -1,6 +1,6 @@
 {
   "name": "oauth2-client-js",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "homepage": "https://github.com/zalando/oauth2-client-js",
   "authors": [
     "Nikolaus Piccolotto <nikolaus.piccolotto@zalando.de>"
