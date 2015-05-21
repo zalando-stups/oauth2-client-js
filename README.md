@@ -11,6 +11,7 @@ NPM:
     npm i --save oauth2-client-js
 
 Bower:
+    
     bower install --save oauth2-client-js
 
 ## Usage
