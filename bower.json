@@ -1,0 +1,24 @@
+{
+  "name": "oauth2-client-js",
+  "version": "0.0.14",
+  "homepage": "https://github.com/zalando/oauth2-client-js",
+  "authors": [
+    "Nikolaus Piccolotto <nikolaus.piccolotto@zalando.de>"
+  ],
+  "description": "A client implementation for OAuth2 Implicit Grant",
+  "main": "dist/oauth2-client.js",
+  "keywords": [
+    "oauth2"
+  ],
+  "license": "Apache 2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "node-uuid": "~1.4.3"
+  }
+}
