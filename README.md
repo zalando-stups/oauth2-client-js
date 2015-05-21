@@ -6,7 +6,12 @@ A library to help you handling OAuth2 access and request tokens. Since it is mea
 
 ## Installation
 
+NPM:
+
     npm i --save oauth2-client-js
+
+Bower:
+    bower install --save oauth2-client-js
 
 ## Usage
 
