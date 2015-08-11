@@ -1,6 +1,6 @@
 import querystring from 'querystring';
 import {assertPresent, stripKeys, includes, endsWith, startsWith} from './util';
-import LocalTokenStorage from './storage/local-storage';
+import MemoryStorage from './storage/memory-storage';
 import Refresh from './refresh';
 import Response from './response';
 import OAuthError from './error';
@@ -10,7 +10,7 @@ class Provider {
         assertPresent(config, ['authorization_url', 'id']);
         this.id = config.id;
         this.authorization_url = config.authorization_url;
-        this.storage = config.storage || new LocalTokenStorage(this.id, window.localStorage);
+        this.storage = config.storage || new MemoryStorage();
         this.auth_url_has_query = includes.call(this.authorization_url, '?');
 
         if (endsWith.call(this.authorization_url, '/') && !this.auth_url_has_query) {
