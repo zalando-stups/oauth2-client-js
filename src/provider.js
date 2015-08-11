@@ -1,9 +1,18 @@
 import querystring from 'querystring';
-import {assertPresent, stripKeys, includes, endsWith, startsWith} from './util';
+import {
+    assertPresent,
+    stripKeys,
+    includes,
+    endsWith,
+    startsWith,
+    encodeBase64
+} from './util';
 import MemoryStorage from './storage/memory-storage';
 import Refresh from './refresh';
 import Response from './response';
+import HttpRequest from './http-request';
 import OAuthError from './error';
+import FlowTypes from './flow-types';
 
 class Provider {
     constructor(config) {
@@ -66,12 +75,23 @@ class Provider {
     }
 
     encodeInUri(request) {
-        let strippedRequest = stripKeys(request, ['metadata']);
+        let strippedRequest = stripKeys(request, [/^_/]);
         return this.authorization_url + (this.auth_url_has_query ? '&' : '?') + querystring.stringify(strippedRequest);
     }
 
-    requestToken(request) {
-        return this.encodeInUri(request);
+    requestToken(client, request) {
+        if (request._flow_type === FlowTypes.IMPLICIT) {
+            return new HttpRequest('REDIRECT', this.encodeInUri(request));
+        }
+        if (request._flow_type === FlowTypes.ROPC) {
+            return new HttpRequest('POST',
+                                    this.authorization_url,
+                                    querystring.stringify(stripKeys(request, /^_/)),
+                                    {
+                                        'Content-Type': 'application/x-www-form-urlencoded',
+                                        'Authorization': 'Basic ' + encodeBase64(client.id + ':' + (client.secret || ''))
+                                    });
+        }
     }
 
     refreshToken() {
