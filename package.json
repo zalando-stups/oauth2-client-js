@@ -1,6 +1,6 @@
 {
   "name": "@zalando/oauth2-client-js",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "A client implementation for OAuth2 Implicit Grant",
   "keywords": [
     "oauth2"
