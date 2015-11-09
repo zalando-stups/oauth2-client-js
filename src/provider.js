@@ -105,6 +105,7 @@ class Provider {
         // if we expected this response
         if (response instanceof Response) {
             // update the tokens
+            this.storage._empty();
             this.setAccessToken(response.access_token);
             this.setRefreshToken(response.refresh_token);
             // return the request so that we know

@@ -3,6 +3,10 @@ node_js:
   - '0.10'
   - '0.12'
   - 'iojs'
+  - '4.0'
+  - '4.1'
 notifications:
   email: false
-script: "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly --  --compilers js:babel/register --require test/chai.js -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+script:
+  - npm install
+  - npm run cover

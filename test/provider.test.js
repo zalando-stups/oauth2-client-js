@@ -148,8 +148,11 @@ describe('Provider', () => {
         })).to.be.false;
     });
 
-    it('#parse should return the response and save tokens', () => {
+    it('#parse should return the response and save tokens and forget all requests', () => {
         provider.remember(request);
+        provider.remember({
+            state: 'foo'
+        });
         responseConfig.state = request.state;
         let fragment = querystring.stringify(responseConfig);
         let response = provider.parse(fragment);
@@ -160,6 +163,14 @@ describe('Provider', () => {
         // should have saved access and request tokens
         expect(provider.getAccessToken()).to.equal(response.access_token);
         expect(provider.getRefreshToken()).to.equal(response.refresh_token);
+        // should forget the request
+        expect(provider.isExpected({
+            state: request.state
+        })).to.be.false;
+        // should also not remember the other requests
+        expect(provider.isExpected({
+            state: 'foo'
+        })).to.be.false;
     });
 
     it('#parse should return the error response', () => {
