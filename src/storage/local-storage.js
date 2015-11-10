@@ -38,6 +38,11 @@ class LocalTokenStorage extends OAuthTokenStorage {
             }
         });
     }
+
+    // do *NOT* call this outside of tests
+    _purge() {
+        this.localStorage.clear();
+    }
 }
 
 export default LocalTokenStorage;

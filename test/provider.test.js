@@ -3,7 +3,52 @@ import Provider from '../src/provider';
 import ImplicitRequest from '../src/request';
 import ImplicitResponse from '../src/response';
 import ErrorResponse from '../src/error';
+import Storage from '../src/storage/storage';
 import MemoryStorage from '../src/storage/memory-storage';
+
+// provide a serious localStorage mock here
+// so that #4 never happens again
+class MockLocalStorage extends Storage {
+    constructor(prefix) {
+        super();
+        this.prefix = prefix;
+        this.store = {};
+    }
+
+    get(key) {
+        let item = this.store[`${this.prefix}-${key}`];
+        try {
+            item = JSON.parse(item);
+        } catch(err) {
+            return item;
+        }
+        return item;
+    }
+
+    set(key, val) {
+        let toSave = typeof val === 'object' ? JSON.stringify(val) : val;
+        this.store[`${this.prefix}-${key}`] = toSave;
+        return toSave;
+    }
+
+    remove(key) {
+        delete this.store[`${this.prefix}-${key}`];
+    }
+
+    _empty() {
+        Object
+        .keys(this.store)
+        .forEach(key => {
+            if (key.startsWith(this.prefix)) {
+                delete this.store[key];
+            }
+        });
+    }
+
+    _purge() {
+        this.store = {};
+    }
+}
 
 describe('Provider', () => {
     var provider,
@@ -15,7 +60,7 @@ describe('Provider', () => {
         provider = new Provider({
             id: 'test',
             authorization_url: 'auth',
-            storage: new MemoryStorage()
+            storage: new MockLocalStorage('test')
         });
         requestConfig = {
             client_id: 'client',
@@ -31,7 +76,7 @@ describe('Provider', () => {
     });
 
     afterEach(() => {
-        provider.storage._empty();
+        provider.storage._purge();
     });
 
     it('should bail without authorization_url', () => {
@@ -150,9 +195,10 @@ describe('Provider', () => {
 
     it('#parse should return the response and save tokens and forget all requests', () => {
         provider.remember(request);
-        provider.remember({
-            state: 'foo'
-        });
+        // that should stay
+        provider.storage['foo'] = 'bar';
+        // that should be deleted
+        provider.storage['test-1234'] = '4321';
         responseConfig.state = request.state;
         let fragment = querystring.stringify(responseConfig);
         let response = provider.parse(fragment);
@@ -169,8 +215,10 @@ describe('Provider', () => {
         })).to.be.false;
         // should also not remember the other requests
         expect(provider.isExpected({
-            state: 'foo'
+            state: '1234'
         })).to.be.false;
+        // but not other keys
+        expect(provider.storage.foo).to.be.ok;
     });
 
     it('#parse should return the error response', () => {

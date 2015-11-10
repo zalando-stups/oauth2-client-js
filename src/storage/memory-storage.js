@@ -22,6 +22,10 @@ class MemoryTokenStorage extends OAuthTokenStorage {
     _empty() {
         this.items = {};
     }
+
+    _purge() {
+        this.items = {};
+    }
 }
 
 export default MemoryTokenStorage;

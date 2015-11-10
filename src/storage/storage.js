@@ -6,5 +6,6 @@ export default class OAuthTokenStorage {
     set(key, val) {}
     remove(key) {}
     _empty() {}
+    _purge() {}
     /* eslint-enable */
 }
