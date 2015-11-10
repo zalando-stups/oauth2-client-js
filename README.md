@@ -1,6 +1,6 @@
 # OAuth2 Client
 
-[![Build Status](http://img.shields.io/travis/zalando/oauth2-client-js.svg)](https://travis-ci.org/zalando/oauth2-client-js) [![Coverage Status](https://coveralls.io/repos/zalando/oauth2-client-js/badge.svg)](https://coveralls.io/r/zalando/oauth2-client-js) [![Join the chat at https://gitter.im/zalando/oauth2-client-js](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/zalando/oauth2-client-js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](http://img.shields.io/travis/zalando/oauth2-client-js.svg)](https://travis-ci.org/zalando/oauth2-client-js) [![Coverage Status](https://coveralls.io/repos/zalando/oauth2-client-js/badge.svg)](https://coveralls.io/r/zalando/oauth2-client-js) ![Latest version](https://badge.fury.io/js/%40zalando%2Foauth2-client-js.svg) [![Join the chat at https://gitter.im/zalando/oauth2-client-js](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/zalando/oauth2-client-js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
 
