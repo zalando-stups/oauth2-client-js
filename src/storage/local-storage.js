@@ -30,7 +30,13 @@ class LocalTokenStorage extends OAuthTokenStorage {
     }
 
     _empty() {
-        this.localStorage.clear();
+        Object
+        .keys(this.localStorage)
+        .forEach(key => {
+            if (key.startsWith(this.prefix)) {
+                this.localStorage.removeItem(key);
+            }
+        });
     }
 }
 
