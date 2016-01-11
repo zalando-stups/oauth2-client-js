@@ -10,7 +10,7 @@ A library to help you handling OAuth2 access and request tokens. Since it is mea
 
 NPM:
 
-    npm i --save oauth2-client-js
+    npm i --save @zalando/oauth2-client-js
 
 Bower:
     
@@ -20,7 +20,7 @@ Bower:
 
 A “provider” manages your tokens and knows how to handle responses from the authorization endpoint. Create a new provider like this:
 
-    var OAuth = require('oauth2-client-js');
+    var OAuth = require('@zalando/oauth2-client-js');
     var google = new OAuth.Provider({
         id: 'google',   // required
         authorization_url: 'https://google.com/auth' // required
