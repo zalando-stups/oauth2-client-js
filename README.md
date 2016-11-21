@@ -4,7 +4,7 @@
 
 
 
-A library to help you handling OAuth2 access and request tokens. Since it is meant to be used in the browser it only includes the [OAuth2 Implicit Grant](https://tools.ietf.org/html/rfc6749#section-4.2) flow.
+OAuth2 Client is a library to help you handle OAuth2 access and request tokens. It's for browser-only use, so it only includes the [OAuth2 Implicit Grant](https://tools.ietf.org/html/rfc6749#section-4.2) flow.
 
 ## Installation
 
