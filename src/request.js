@@ -1,5 +1,5 @@
 import {assertPresent} from './util';
-import uuid from 'node-uuid';
+import uuid from 'uuid';
 
 /**
  * As per RFC 6749, Section 4.2.1

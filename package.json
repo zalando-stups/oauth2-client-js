@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/zalando/oauth2-client-js",
   "dependencies": {
-    "node-uuid": "1.4.3"
+    "uuid": "^3.0.0"
   },
   "devDependencies": {
     "babel": "^5.8.29",
