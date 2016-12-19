@@ -3,8 +3,22 @@
 [![Build Status](http://img.shields.io/travis/zalando/oauth2-client-js.svg)](https://travis-ci.org/zalando/oauth2-client-js) [![Coverage Status](https://coveralls.io/repos/zalando/oauth2-client-js/badge.svg)](https://coveralls.io/r/zalando/oauth2-client-js) ![Latest version](https://badge.fury.io/js/%40zalando%2Foauth2-client-js.svg) [![Join the chat at https://gitter.im/zalando/oauth2-client-js](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/zalando/oauth2-client-js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
+OAuth2 Client is a library to help you handle OAuth2 access and request tokens. It's for browser-only use (it came about because it was used for a single-page application), so it only includes the [OAuth2 Implicit Grant](https://tools.ietf.org/html/rfc6749#section-4.2) flow.
 
-A library to help you handling OAuth2 access and request tokens. Since it is meant to be used in the browser it only includes the [OAuth2 Implicit Grant](https://tools.ietf.org/html/rfc6749#section-4.2) flow.
+## Context/What Oauth2-client-js Does
+
+OAuth2-client-js enables you to work with OAuth2-compliant APIs directly from the (browser) JS app. It encapsulates the gritty RFC parts, but leaves enough flexibility to be usable with any JS framework.
+
+Others have created JavaScript OAuth 2.0 libraries like [JSO](https://github.com/andreassolberg/jso), but Oauth2-client-js makes fewer assumptions about how your application works (where the token is needed/used, when a redirect is desirable, etc.). It also makes handling of scopes very simple.
+
+## To-Do/Contribute
+
+This project is looking primarily for users, but contributors are also welcome. If you'd like to help, here are some open to-do's:
+
+- Remove refresh token support
+- Add other grant flows that a non-confidential client is allowed to use
+- Write docs
+
 
 ## Installation
 
@@ -30,9 +44,9 @@ By default a provider will use the localStorage to save its tokens, but with `st
 
 Most of the time you will want to do two things: Request new tokens and check whether there are tokens available.
 
-### Requesting tokens
+### Requesting Tokens
 
-To get a new access token you have to redirect the user to the authorization endpoint. The full URI is constructed like this:
+To get a new access token, redirect the user to the authorization endpoint. The full URI is constructed like this:
 
     // Create a new request
     var request = new OAuth.Request({
@@ -58,7 +72,7 @@ To parse the response out of the uri, do it like this:
 
 This will either throw an error (e.g. when the `state` property doesn’t match both in request and response) or return the response. It will have `metadata` from the request on it. Access and refresh tokens are now available on the provider.
 
-#### Refresh tokens
+#### Refresh Tokens
 
 They are not in the RFC spec, but you can use them as well (if your server supports them). To issue a refresh request:
 
