@@ -5,9 +5,9 @@
 
 OAuth2 Client is a library to help you handle OAuth2 access and request tokens. It's for browser-only use (it came about because it was used for a single-page application), so it only includes the [OAuth2 Implicit Grant](https://tools.ietf.org/html/rfc6749#section-4.2) flow.
 
-## Context/What Oauth2-client-js Does
+## Context/What OAuth2 Client Does
 
-OAuth2-client-js enables you to work with OAuth2-compliant APIs directly from the (browser) JS app. It encapsulates the gritty RFC parts, but leaves enough flexibility to be usable with any JS framework.
+OAuth2 Client enables you to work with OAuth2-compliant APIs directly from the (browser) JS app. It encapsulates the gritty RFC parts, but leaves enough flexibility to be usable with any JS framework.
 
 Others have created JavaScript OAuth 2.0 libraries like [JSO](https://github.com/andreassolberg/jso), but Oauth2-client-js makes fewer assumptions about how your application works (where the token is needed/used, when a redirect is desirable, etc.). It also makes handling of scopes very simple.
 
