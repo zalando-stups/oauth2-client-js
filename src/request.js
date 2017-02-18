@@ -22,9 +22,7 @@ class OAuthRequest {
 
 class OAuthImplicitRequest extends OAuthRequest {
     constructor(config) {
-        config.response_type = config.response_type !== undefined
-          ? config.response_type
-          : 'token';
+        config.response_type = 'token';
         super(config);
         assertPresent(config, ['client_id']);
         this.client_id = config.client_id;
