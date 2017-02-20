@@ -27,7 +27,9 @@ class OAuthImplicitRequest extends OAuthRequest {
         assertPresent(config, ['client_id']);
         this.client_id = config.client_id;
         this.redirect_uri = config.redirect_uri;
-        this.state = uuid.v4();
+        this.state = config.state !== undefined
+          ? config.state
+          : uuid.v4();
     }
 }
 
