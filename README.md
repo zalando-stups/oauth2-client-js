@@ -24,21 +24,27 @@ This project is looking primarily for users, but contributors are also welcome. 
 
 NPM:
 
-    npm i --save @zalando/oauth2-client-js
+```shell
+npm i --save @zalando/oauth2-client-js  
+```
 
 Bower:
-    
-    bower install --save oauth2-client-js
+   
+```shell    
+bower install --save oauth2-client-js
+```
 
 ## Usage
 
 A “provider” manages your tokens and knows how to handle responses from the authorization endpoint. Create a new provider like this:
 
-    var OAuth = require('@zalando/oauth2-client-js');
-    var google = new OAuth.Provider({
-        id: 'google',   // required
-        authorization_url: 'https://google.com/auth' // required
-    });
+```javascript
+var OAuth = require('@zalando/oauth2-client-js');
+var google = new OAuth.Provider({
+    id: 'google',   // required
+    authorization_url: 'https://google.com/auth' // required
+});
+```
 
 By default a provider will use the localStorage to save its tokens, but with `storage` you can pass anything that adheres to the [Storage API](src/storage/storage.js).
 
@@ -48,27 +54,31 @@ Most of the time you will want to do two things: Request new tokens and check wh
 
 To get a new access token, redirect the user to the authorization endpoint. The full URI is constructed like this:
 
-    // Create a new request
-    var request = new OAuth.Request({
-        client_id: 'my_client_id',  // required
-        redirect_uri: 'http://my.server.com/auth-answer'
-    });
+```javascript
+// Create a new request
+var request = new OAuth.Request({
+    client_id: 'my_client_id',  // required
+    redirect_uri: 'http://my.server.com/auth-answer'
+});
 
-    // Give it to the provider
-    var uri = google.requestToken(request);
+// Give it to the provider
+var uri = google.requestToken(request);
 
-    // Later we need to check if the response was expected
-    // so save the request
-    google.remember(request);
+// Later we need to check if the response was expected
+// so save the request
+google.remember(request);
 
-    // Do the redirect
-    window.location.href = uri;
+// Do the redirect
+window.location.href = uri;
+```
 
 The auth endpoint will redirect the user back to the `redirect_uri` and encode its response in the URI fragment. Since your application completely lost its state by now, you may want to pass `metadata` to the request. It will be stored along with the request and loaded later on. E.g. your current application route could go in there.
 
 To parse the response out of the uri, do it like this:
 
-    var response = google.parse(window.location.href);
+```javascript
+var response = google.parse(window.location.href);
+```
 
 This will either throw an error (e.g. when the `state` property doesn’t match both in request and response) or return the response. It will have `metadata` from the request on it. Access and refresh tokens are now available on the provider.
 
@@ -76,14 +86,16 @@ This will either throw an error (e.g. when the `state` property doesn’t match 
 
 They are not in the RFC spec, but you can use them as well (if your server supports them). To issue a refresh request:
 
-    var uri = google.refreshToken();
-    yourHttpLibrary
-        .get(uri)
-        .then(function(response) {
-            google.handleRefresh(response.body);
-            // your tokens are now diamonds
-            // ehm, up to date.
-        });
+```javascript
+var uri = google.refreshToken();
+yourHttpLibrary
+    .get(uri)
+    .then(function(response) {
+        google.handleRefresh(response.body);
+        // your tokens are now diamonds
+        // ehm, up to date.
+    });
+```
 
 ### Get Tokens
 
