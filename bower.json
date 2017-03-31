@@ -19,6 +19,6 @@
     "tests"
   ],
   "dependencies": {
-    "node-uuid": "~1.4.3"
+    "uuid": "~2.0.2"
   }
 }
