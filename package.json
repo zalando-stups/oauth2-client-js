@@ -6,6 +6,7 @@
     "oauth2"
   ],
   "main": "dist/oauth2-client.js",
+  "types": "./index.d.ts",
   "scripts": {
     "cover": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly --  --compilers js:babel/register --require test/chai.js -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "test": "mocha -r test/chai.js --compilers js:babel/register test/*.test.js"
@@ -34,6 +35,7 @@
     "istanbul": "^0.4.0",
     "istanbul-harmony": "^0.3.16",
     "mocha": "^2.3.3",
+    "typescript": "^2.2.2",
     "webpack": "^1.12.3"
   }
 }
