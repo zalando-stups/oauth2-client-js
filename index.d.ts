@@ -26,6 +26,9 @@ declare interface IOAuthRequest {
 }
 
 declare class OAuthRequest implements IOAuthRequest {
+    response_type: string;
+    scope: string;
+    metadata: object;
     constructor(config: IOAuthRequest);
 }
 
@@ -35,7 +38,10 @@ declare interface IOAuthImplicitRequest extends IOAuthRequest {
     state: string;
 }
 
-declare class OAuthImplicitRequest extends OAuthRequest, implements IOAuthImplicitRequest {
+declare class OAuthImplicitRequest extends OAuthRequest implements IOAuthImplicitRequest {
+    client_id: string;
+    redirect_uri: string;
+    state: string;
     constructor(config: IOAuthImplicitRequest);
 }
 
@@ -48,6 +54,11 @@ declare interface IOAuthResponse {
 }
 
 declare class OAuthResponse implements IOAuthResponse {
+    access_token: string;
+    token_type: string;
+    refresh_token: string;
+    expires_in: number;
+    scope: string;
     constructor(response: IOAuthResponse);
 }
 
@@ -55,7 +66,8 @@ declare interface IOAuthImplicitResponse extends IOAuthResponse {
     state: string;
 }
 
-declare class OAuthImplicitResponse extends OAuthResponse, implements IOAuthImplicitResponse {
+declare class OAuthImplicitResponse extends OAuthResponse implements IOAuthImplicitResponse {
+    state: string;
     constructor(response: IOAuthImplicitResponse);
 }
 
@@ -87,10 +99,13 @@ declare interface IProvider {
 }
 
 declare class Provider implements IProvider {
+    id: string;
+    authorization_url: string;
+    storage: WindowLocalStorage;
     constructor(config: IProvider);
     auth_url_has_query: boolean;
     deleteTokens(): void;
-    remember(request: OAuthImplicitRequest): void | boolean;
+    remember(request: OAuthImplicitRequest): void | boolean;
     forget(request: OAuthImplicitRequest): void;
     isExpected(response: OAuthImplicitResponse): boolean;
     hasAccessToken(): boolean;
@@ -101,11 +116,11 @@ declare class Provider implements IProvider {
     setRefreshToken(token: string): void;
     encodeInUri(request: OAuthRequest): string;
     requestToken(request: OAuthRequest): string;
-    refreshToken(): string | boolean;
-    decodeFromUri(fragment: string): OAuthErrorResponse | OAuthImplicitResponse;
-    handleRefresh(response: OAuthResponse);
-    handleResponse(response: OAuthImplicitResponse): OAuthErrorResponse | OAuthImplicitResponse;
-    parse(fragment: string): Error | OAuthErrorResponse | OAuthImplicitResponse;
+    refreshToken(): string | boolean;
+    decodeFromUri(fragment: string): OAuthErrorResponse | OAuthImplicitResponse;
+    handleRefresh(response: OAuthResponse): void;
+    handleResponse(response: OAuthImplicitResponse): OAuthErrorResponse | OAuthImplicitResponse;
+    parse(fragment: string): Error | OAuthErrorResponse | OAuthImplicitResponse;
 }
 
 export {
