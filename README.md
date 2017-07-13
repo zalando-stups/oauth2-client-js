@@ -77,7 +77,7 @@ The auth endpoint will redirect the user back to the `redirect_uri` and encode i
 To parse the response out of the uri, do it like this:
 
 ```javascript
-var response = google.parse(window.location.href);
+var response = google.parse(window.location.hash);
 ```
 
 This will either throw an error (e.g. when the `state` property doesn’t match both in request and response) or return the response. It will have `metadata` from the request on it. Access and refresh tokens are now available on the provider.
