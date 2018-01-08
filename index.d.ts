@@ -20,12 +20,12 @@ declare class RefreshRequest {
 }
 
 declare interface IOAuthRequest {
-    response_type: string;
-    scope: string;
-    metadata: object;
+    response_type?: string;
+    scope?: string;
+    metadata?: object;
 }
 
-declare class OAuthRequest implements IOAuthRequest {
+declare class OAuthRequest {
     response_type: string;
     scope: string;
     metadata: object;
@@ -35,7 +35,7 @@ declare class OAuthRequest implements IOAuthRequest {
 declare interface IOAuthImplicitRequest extends IOAuthRequest {
     client_id: string;
     redirect_uri: string;
-    state: string;
+    state?: string;
 }
 
 declare class OAuthImplicitRequest extends OAuthRequest implements IOAuthImplicitRequest {
@@ -95,10 +95,10 @@ declare class LocalTokenStorage extends OAuthTokenStorage {
 declare interface IProvider {
     id: string;
     authorization_url: string;
-    storage: WindowLocalStorage;
+    storage?: WindowLocalStorage;
 }
 
-declare class Provider implements IProvider {
+declare class Provider {
     id: string;
     authorization_url: string;
     storage: WindowLocalStorage;
